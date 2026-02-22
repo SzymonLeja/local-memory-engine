@@ -61,7 +61,6 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"status":"ok"}`))
 	})
-	r.Get("/health", healthHandler)
 	r.Post("/ingest", ingestSvc.IngestHandler)
 	r.Post("/query", querySvc.QueryHandler)
 	r.Get("/provenance/{id}", provenanceSvc.GetHandler)
@@ -79,9 +78,4 @@ func main() {
 		}
 	}
 	log.Fatal(http.ListenAndServe(cfg.ListenAddr, r))
-}
-
-func healthHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("OK"))
 }
